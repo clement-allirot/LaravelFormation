@@ -1,0 +1,18 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+@import 'bootstrap';
+contenuGlobal {
+    display: block;
+    position: relative;
+    margin: 1em;
+}
+
+table {
+    width: 100% !important;
+}
+
+h1 {
+    font-size: 25px;
+    font-weight: bold;
+}

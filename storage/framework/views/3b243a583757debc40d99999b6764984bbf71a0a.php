@@ -1,0 +1,1 @@
+qsddqs<?php /**PATH C:\FormationsCode\Laravel\laravelformation\resources\views/welcome.blade.php ENDPATH**/ ?>

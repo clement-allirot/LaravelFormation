@@ -48,11 +48,13 @@
 
      <hr>
     <h3>Vidéos </h3>
-    @forelse($video->comments as $comment)
-            <div>{{$video->url}} {{$comment->body}} | crée le {{$comment->created_at->format('d/m/Y à H:i:s')}}</div>
-    @empty
-        <div>Aucun commentaire pour cette vidéo</div>
-    @endforelse 
+    @if(isset($video))
+        @forelse($video->comments as $comment)
+                <div>{{$video->url}} {{$comment->body}} | crée le {{$comment->created_at->format('d/m/Y à H:i:s')}}</div>
+        @empty
+            <div>Aucun commentaire pour cette vidéo</div>
+        @endforelse 
+    @endif 
 
     <hr>
 

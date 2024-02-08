@@ -47,7 +47,7 @@ class PostController extends Controller
         $post = Post::findOrFail($id);
         $countPosts = count(Post::all());
 
-        Post::find(108)->tags()->toggle(9);
+       // Post::find(108)->tags()->toggle(9);
 
         $video = Video::find(1);
 

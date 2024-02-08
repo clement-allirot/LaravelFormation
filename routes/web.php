@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\PostController;
+use App\Models\Post;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
@@ -15,27 +16,38 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [PostController::class, 'index'])
-    ->name('welcome');
+Route::middleware(['auth', 'is.admin'])->group(
+    function () {
+        Route::get('/posts/create', [PostController::class, 'create'])
+            ->name('create');
 
-Route::get('/posts', [PostController::class, 'showAll'])
-    ->name('showAll');
+        Route::post('/posts/create', [PostController::class, 'store'])
+            ->name('posts.store');
+    }
+);
 
-Route::get('/posts/create', [PostController::class, 'create'])
-    ->name('create');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/', [PostController::class, 'index'])
+        ->name('welcome');
 
-Route::post('/posts/create', [PostController::class, 'store'])
-    ->name('posts.store');
+    Route::get('/posts', [PostController::class, 'showAll'])
+        ->name('showAll');
 
-Route::get('/posts/{id}', [PostController::class, 'show'])
-    ->name('show');
+    Route::get('/posts/{id}', [PostController::class, 'show'])
+        ->name('show');
 
-Route::get('/contact', [PostController::class, 'contact'])
-    ->name('contact');
+    Route::get('/contact', [PostController::class, 'contact'])
+        ->name('contact');
+});
 
 Route::get('/dashboard', function () {
+    $post = Post::withTrashed()->where('id', 37);
+    $post->restore();
+    //$post->delete();
+    //dd($post);
+
     return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+})->name('dashboard');
 
 require __DIR__ . '/auth.php';
 
